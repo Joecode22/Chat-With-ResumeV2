@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joe McKinney</title>
+</head>
+<body>
+  <!-- This project will interface with openAI API to "chat" with the information included in a text file that is my resume -->
+  <!-- This page will show a Title section at the top that has my name, a hero section just under it that includes a short paragraph about me, and the main section that has three subsections 1) the animated AI bot avatar that has a ripple effect when she speaks, 2) the answer text output from the LLM as well as the question form input and a submit button, 4) a representation of my resume that you can click to download this is also the source material for the chat -->
+  <header>
+    <h1>Joe McKinney</h1>
+  </header>
+  <section class="hero">
+    <p>Hi, I'm Joe McKinney. I've spent some time in the Navy and the Air Force and I have an academic background in engineering.</p>
+    <p>Welcome to my site. Feel free to interact with the chat with resume feature I've included below.</p>
+  </section>
+  <main>
+    <section class="ai-avatar">
+      <img src="https://via.placeholder.com/150" alt="AI Avatar">
+    </section>
+    <section class="chat">
+      <form action="submit">
+        <input type="text" name="question" id="question" placeholder="Ask me anything">
+        <button type="submit">Submit</button>
+      </form>
+      <p>Answer</p>
+    </section>
+    <section class="resume">
+      <a href="path/to/resume.pdf" download>Download Resume</a>
+    </section>
+  </main>
+</body>
+<footer>
+  <p>&copy; 2021 Joe McKinney</p>
+</footer>
+</html>
