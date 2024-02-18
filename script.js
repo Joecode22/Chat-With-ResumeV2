@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const chunk = decoder.decode(value);
         resultText.innerText += chunk;
 
-        // Yield control back to the browser
-        await new Promise(resolve => setTimeout(resolve, 0));
+        // Yield control back to the browser and add delay
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
     } catch (error) {
       console.error("Error from server:", error);
