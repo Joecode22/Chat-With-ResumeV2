@@ -9,12 +9,13 @@ const openai = new OpenAI({
 // IMPORTANT! Set the runtime edge
 export const runtime = 'edge';
 
-// Create a readable stream from an async generator
 function createReadableStream(asyncIterable) {
   const readable = new Readable({
     read() {
       (async () => {
         for await (const chunk of asyncIterable) {
+          const timestamp = new Date().toISOString();
+          console.log(`[${timestamp}] Pushing data to stream:`, chunk.choices[0].delta.content);
           this.push(chunk.choices[0].delta.content);
         }
         this.push(null);
