@@ -214,7 +214,14 @@ form button:active {
 }
 
 #randomBtn {
-  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.line {
+  display: block;
 }
 
 /* Footer styles */
