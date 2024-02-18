@@ -24,9 +24,6 @@ function createReadableStream(asyncIterable) {
             const timestamp = new Date().toISOString();
             console.log(`[${timestamp}] Pushing data to stream:`, chunk.choices[0].delta.content);
             this.push((i++ ? ',\n' : '[') + JSON.stringify(chunk)); // Add newline character after each JSON object
-
-            // Add a delay before pushing the next chunk
-            await new Promise(resolve => setTimeout(resolve, 1000));
           }
         }
         this.push('\n]'); // Send the closing bracket with a newline character
