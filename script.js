@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultText = document.getElementById("resultText");
     resultText.innerHTML = "<p>Loading...</p>";
 
-    const prompt = document.getElementById("promptInput").innerText;
+    const prompt = document.getElementById("promptInput").value;
     const queue = [];
     let processingQueue = false;
 
