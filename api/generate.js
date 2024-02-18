@@ -17,7 +17,7 @@ function createReadableStream(asyncIterable) {
           if (chunk.choices && chunk.choices[0].delta && chunk.choices[0].delta.content) {
             const timestamp = new Date().toISOString();
             console.log(`[${timestamp}] Pushing data to stream:`, chunk.choices[0].delta.content);
-            this.push(chunk.choices[0].delta.content);
+            this.push(JSON.stringify(chunk)); // Push the entire chunk object as a string
 
             // Add a delay before pushing the next chunk
             await new Promise(resolve => setTimeout(resolve, 1000));

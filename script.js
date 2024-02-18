@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const prompt = document.getElementById("promptInput").value;
 
     oboe(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
-      .node('!.choices.*.delta.content', function(chunk) {
+      .node('!.choices.*.delta', function(delta) {
         const paragraph = document.createElement("p");
-        paragraph.innerText = chunk;
+        paragraph.innerText = delta.content;
         resultText.appendChild(paragraph);
       })
       .fail(function(error) {
