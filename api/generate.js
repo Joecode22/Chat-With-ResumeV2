@@ -1,5 +1,4 @@
 import OpenAI from 'openai';
-import { OpenAIStream } from 'ai';
 import { Readable } from 'stream';
 
 // Create an OpenAI API client (that's edge friendly!)
@@ -7,16 +6,16 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-// IMPORTANT! Set the runtime to edge
+// IMPORTANT! Set the runtime edge
 export const runtime = 'edge';
 
 // Create a readable stream from an async generator
-function createReadableStream(asyncGenerator) {
+function createReadableStream(asyncIterable) {
   const readable = new Readable({
     read() {
       (async () => {
-        for await (const chunk of asyncGenerator) {
-          this.push(chunk);
+        for await (const chunk of asyncIterable) {
+          this.push(chunk.choices[0].delta.content);
         }
         this.push(null);
       })();
@@ -32,7 +31,7 @@ export default async function (req, res) {
   console.log('Prompt:', prompt); // Log the prompt
 
   try {
-    const response = await openai.chat.completions.create({
+    const response = openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       stream: true,
       messages: [
@@ -43,7 +42,7 @@ export default async function (req, res) {
 
     console.log("the response is: ", response); // Log the response
 
-    const stream = createReadableStream(response.iterator);
+    const stream = createReadableStream(response);
 
     // Pipe the stream to the response
     stream.pipe(res);
