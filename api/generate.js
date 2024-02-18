@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
   console.log('Response from OpenAI API:', data); // Log the response from the OpenAI API
 
   // Check if the data contains the expected 'choices' array
+  console.log('Data choices:', data.choices);
   if (!Array.isArray(data.choices) || data.choices.length === 0 || typeof data.choices[0].message !== 'object' || typeof data.choices[0].message.content !== 'string') {
     res.status(500).json({ error: 'Unexpected response format from OpenAI API' });
     return;
