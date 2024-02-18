@@ -8,7 +8,7 @@ const openai = new OpenAI({
 export const runtime = 'edge';
 
 export default async function (req, res) {
-  const prompt = req.body.prompt;
+  const prompt = req.query.prompt;
 
   console.log('Request body:', req.body); // Log the request body
 
