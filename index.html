@@ -23,7 +23,8 @@
   <section id="hero" class="hero">
     <section class="bio">
       <img src="images/joe.png" alt="Joe McKinney">
-      <p><span>>_</span> Hi, I'm Joe McKinney. I've spent some time in the Navy and the Air Force and I have an academic background
+      <p><span>>_</span> Hi, I'm Joe McKinney. I've spent some time in the Navy and the Air Force and I have an academic
+        background
         in engineering. Welcome to my site. Feel free to interact with the chat with resume feature I've included below.
       </p>
     </section>
@@ -37,13 +38,13 @@
 
     <!-- Chat Section -->
     <section id="chat" class="chat">
-      <form action="submit">
-        <input type="text" id="promptInput" placeholder="Ask a question about my Resume.">
+      <div>
+        <div id="promptInput" contenteditable="true" placeholder="Ask a question about my Resume."></div>
         <div class="buttons">
           <button type="button" id="generateBtn">Ask</button>
           <button type="button" id="stopBtn">Stop</button>
         </div>
-      </form>
+      </div>
       <div id="resultText" class="answer">
         <span>>_ </span>
       </div>

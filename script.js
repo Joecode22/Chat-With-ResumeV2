@@ -3,15 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultText = document.getElementById("resultText");
     resultText.innerHTML = "<p>Loading...</p>";
 
-    const prompt = document.getElementById("promptInput").value;
-    input.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent form submission when Enter is pressed
-
-        // Trigger the click event on the generate button
-        document.getElementById("generateBtn").click();
-      }
-    });
+    const prompt = document.getElementById("promptInput").innerText;
     const queue = [];
     let processingQueue = false;
 
@@ -37,14 +29,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function processChunk({ done, value }) {
           data += decoder.decode(value, { stream: !done });
-
+        
           // Process the entire response as a single JSON object
           if (done) {
             try {
               const items = JSON.parse(data);
               items.forEach(item => {
                 queue.push(item);
-
+        
                 if (!processingQueue) {
                   processingQueue = true;
                   processQueue();
@@ -54,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
               console.error('Error parsing JSON:', error);
             }
           }
-
+        
           if (!done) {
             return reader.read().then(processChunk);
           }
