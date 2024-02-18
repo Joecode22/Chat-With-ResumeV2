@@ -48,7 +48,7 @@ export default async function (req, res) {
       model: "gpt-3.5-turbo",
       stream: true,
       messages: [
-        { "role": "system", "content": "You are a helpful assistant." },
+        { "role": "system", "content": "You are a helpful assistant that answers questions based on the following resume. If a question is not related to the following resume redirect the user to ask relevant questions or to use the random question button" },
         { "role": "user", "content": resume },
         { "role": "user", "content": prompt }
       ],
