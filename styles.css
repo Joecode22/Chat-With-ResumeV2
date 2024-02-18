@@ -173,7 +173,7 @@ form button:active {
 }
 
 .answer {
-  height: 80%;
+  height: 70%;
   padding: 0.5rem;
   margin: 0;
   text-align: left;
@@ -198,7 +198,7 @@ form button:active {
 
 .resume iframe {
   width: 100%;
-  height: 90%;
+  height: 95%;
 }
 
 /* Footer styles */
