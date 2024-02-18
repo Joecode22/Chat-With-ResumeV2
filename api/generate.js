@@ -40,9 +40,15 @@ export default async function (req, res) {
       ],
     });
 
-    console.log("the response is: ", response); // Log the response
+    // Use .tee() to create two independent streams
+    const [logStream, responseStream] = response.tee();
 
-    const stream = createReadableStream(response);
+    // Log the response
+    for await (const chunk of logStream) {
+      console.log(chunk);
+    }
+
+    const stream = createReadableStream(responseStream);
 
     // Pipe the stream to the response
     stream.pipe(res);
