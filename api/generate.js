@@ -1,35 +1,36 @@
 import OpenAI from 'openai';
+import { OpenAIStream, StreamingTextResponse } from 'ai';
 
-const openai = new OpenAI(process.env.OPENAI_API_KEY);
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || '',
+});
 
-module.exports = async (req, res) => {
+export const runtime = 'edge';
+
+export default async function (req, res) {
   const prompt = req.body.prompt;
 
   console.log('Request body:', req.body); // Log the request body
 
   try {
-    const completionStream = await openai.chat.completions.create({
+    const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
-      messages: [
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": prompt}
-      ],
       stream: true,
+      messages: [
+        { "role": "system", "content": "You are a helpful assistant." },
+        { "role": "user", "content": prompt }
+      ],
     });
 
-    // Set the headers for SSE
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
+    const stream = OpenAIStream(response);
 
-    for await (const chunk of completionStream) {
-      if (chunk.choices && chunk.choices[0] && chunk.choices[0].delta && typeof chunk.choices[0].delta.content === 'string') {
-        // Send the chunk as a Server-Sent Event
-        res.write(`data: ${JSON.stringify({ choices: [{ message: { content: chunk.choices[0].delta.content } }] })}\n\n`);
-      }
-    }
-
-    res.end();
+    return new StreamingTextResponse(stream, {
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
+    });
   } catch (error) {
     console.error('Error from OpenAI API:', error);
     res.status(500).json({ error: 'Error from OpenAI API' });
