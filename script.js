@@ -5,13 +5,32 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const prompt = document.getElementById("promptInput").value;
 
-    oboe(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
-      .node('!.*', function (item) {
-        const paragraph = document.createElement("p");
-        paragraph.innerText = item.choices[0].delta.content;
-        resultText.appendChild(paragraph);
+    fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
+      .then(response => {
+        const reader = response.body.getReader();
+        return new ReadableStream({
+          start(controller) {
+            function push() {
+              reader.read().then(({done, value}) => {
+                if (done) {
+                  controller.close();
+                  return;
+                }
+                controller.enqueue(value);
+                push();
+              })
+            }
+            push();
+          }
+        });
       })
-      .fail(function (error) {
+      .then(stream => {
+        return new Response(stream, { headers: { "Content-Type": "text/html" } }).text();
+      })
+      .then(result => {
+        resultText.innerHTML = result;
+      })
+      .catch(error => {
         console.error("Error from server:", error);
         resultText.innerHTML = "<p>Error from server. See console for details.</p>";
       });
