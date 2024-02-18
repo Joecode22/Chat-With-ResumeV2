@@ -22,9 +22,11 @@ export default async function (req, res) {
       ],
     });
 
-    console.log('Response from OpenAI API:', response); // Log the response
-
     const stream = OpenAIStream(response);
+
+    for await (const chunk of stream) {
+      console.log('Data chunk from OpenAI API:', chunk);
+    }
 
     return new StreamingTextResponse(stream, {
       headers: {
