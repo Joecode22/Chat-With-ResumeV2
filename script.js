@@ -1,66 +1,70 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const form = document.querySelector('form');
-  form.addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent form submission
-    document.getElementById("generateBtn").addEventListener("click", () => {
-      const resultText = document.getElementById("resultText");
-      resultText.innerHTML = "<p>Loading...</p>";
+  document.getElementById("generateBtn").addEventListener("click", () => {
+    const resultText = document.getElementById("resultText");
+    resultText.innerHTML = "<p>Loading...</p>";
 
-      const prompt = document.getElementById("promptInput").value;
-      const queue = [];
-      let processingQueue = false;
+    const prompt = document.getElementById("promptInput").value;
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission when Enter is pressed
 
-      function processQueue() {
-        if (queue.length === 0) {
-          processingQueue = false;
-          return;
-        }
+        // Trigger the click event on the generate button
+        document.getElementById("generateBtn").click();
+      }
+    });
+    const queue = [];
+    let processingQueue = false;
 
-        const item = queue.shift();
-        const span = document.createElement("span"); // Change this line
-        span.innerText = item.choices[0].delta.content;
-        resultText.appendChild(span);
-
-        setTimeout(processQueue, 100); // Delay of 1 second
+    function processQueue() {
+      if (queue.length === 0) {
+        processingQueue = false;
+        return;
       }
 
-      fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
-        .then(response => response.body.getReader())
-        .then(reader => {
-          const decoder = new TextDecoder();
-          let data = '';
+      const item = queue.shift();
+      const span = document.createElement("span"); // Change this line
+      span.innerText = item.choices[0].delta.content;
+      resultText.appendChild(span);
 
-          function processChunk({ done, value }) {
-            data += decoder.decode(value, { stream: !done });
+      setTimeout(processQueue, 100); // Delay of 1 second
+    }
 
-            // Process the entire response as a single JSON object
-            if (done) {
-              try {
-                const items = JSON.parse(data);
-                items.forEach(item => {
-                  queue.push(item);
+    fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
+      .then(response => response.body.getReader())
+      .then(reader => {
+        const decoder = new TextDecoder();
+        let data = '';
 
-                  if (!processingQueue) {
-                    processingQueue = true;
-                    processQueue();
-                  }
-                });
-              } catch (error) {
-                console.error('Error parsing JSON:', error);
-              }
-            }
+        function processChunk({ done, value }) {
+          data += decoder.decode(value, { stream: !done });
 
-            if (!done) {
-              return reader.read().then(processChunk);
+          // Process the entire response as a single JSON object
+          if (done) {
+            try {
+              const items = JSON.parse(data);
+              items.forEach(item => {
+                queue.push(item);
+
+                if (!processingQueue) {
+                  processingQueue = true;
+                  processQueue();
+                }
+              });
+            } catch (error) {
+              console.error('Error parsing JSON:', error);
             }
           }
 
-          return reader.read().then(processChunk);
-        })
-        .catch(error => {
-          console.error("Error from server:", error);
-          resultText.innerHTML = "<p>Error from server. See console for details.</p>";
-        });
-    });
+          if (!done) {
+            return reader.read().then(processChunk);
+          }
+        }
+
+        return reader.read().then(processChunk);
+      })
+      .catch(error => {
+        console.error("Error from server:", error);
+        resultText.innerHTML = "<p>Error from server. See console for details.</p>";
+      });
   });
 });
