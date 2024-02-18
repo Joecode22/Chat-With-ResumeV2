@@ -8,19 +8,21 @@ module.exports = async (req, res) => {
   console.log('Request body:', req.body); // Log the request body
 
   try {
-    const completion = await openai.chat.completions.create({
+    const completionStream = openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
+      stream: true,
     });
 
-    console.log('Response from OpenAI API:', completion); // Log the response from the OpenAI API
+    let responseText = '';
 
-    if (!Array.isArray(completion.choices) || completion.choices.length === 0 || typeof completion.choices[0].message !== 'object' || typeof completion.choices[0].message.content !== 'string') {
-      res.status(500).json({ error: 'Unexpected response format from OpenAI API' });
-      return;
+    for await (const chunk of completionStream) {
+      if (chunk.choices && chunk.choices[0] && chunk.choices[0].message && typeof chunk.choices[0].message.content === 'string') {
+        responseText += chunk.choices[0].message.content;
+      }
     }
 
-    res.status(200).json(completion);
+    res.status(200).json({ choices: [{ message: { content: responseText } }] });
   } catch (error) {
     console.error('Error from OpenAI API:', error);
     res.status(500).json({ error: 'Error from OpenAI API' });
