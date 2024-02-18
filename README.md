@@ -35,7 +35,7 @@ npm install
 
 ## Usage
 
-Open index.html in your browser. You can ask the chatbot questions about the resume. If you're not sure what to ask, click the "Random Resume Question" button to get a random question.
+You can ask the chatbot questions about the resume. If you're not sure what to ask, click the "Random Resume Question" button to get a random question.
 
 ## License
 
