@@ -19,6 +19,12 @@ module.exports = async (req, res) => {
     }),
   });
 
+  if (!response.ok) {
+    console.error('Error from OpenAI API:', await response.text());
+    res.status(500).json({ error: 'Error from OpenAI API' });
+    return;
+  }
+
   const data = await response.json();
 
   console.log('Response from OpenAI API:', data); // Log the response from the OpenAI API
