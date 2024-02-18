@@ -7,12 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     oboe(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
       .node('!.*', function (item) {
-        const paragraph = document.createElement("p");
-        paragraph.innerText = item.choices[0].delta.content;
-        resultText.appendChild(paragraph);
-
-        // Force reflow
-        void resultText.offsetHeight;
+        requestAnimationFrame(() => {
+          const paragraph = document.createElement("p");
+          paragraph.innerText = item.choices[0].delta.content;
+          resultText.appendChild(paragraph);
+        });
       })
       .fail(function (error) {
         console.error("Error from server:", error);
