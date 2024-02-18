@@ -1,37 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
   <title>Joe McKinney</title>
 </head>
+
 <body>
   <!-- This project will interface with openAI API to "chat" with the information included in a text file that is my resume -->
   <!-- This page will show a Title section at the top that has my name, a hero section just under it that includes a short paragraph about me, and the main section that has three subsections 1) the animated AI bot avatar that has a ripple effect when she speaks, 2) the answer text output from the LLM as well as the question form input and a submit button, 4) a representation of my resume that you can click to download this is also the source material for the chat -->
   <header>
-    <h1>Joe McKinney</h1>
+    <h1><span>>_</span> Joe McKinney</h1>
+    <nav>
+      <ul>
+        <li><a href="#hero">About</a></li>
+        <li><a href="#chat">Chat</a></li>
+        <li><a href="./images/resume.pdf" download>Resume</a></li>
+      </ul>
   </header>
-  <section class="hero">
-    <p>Hi, I'm Joe McKinney. I've spent some time in the Navy and the Air Force and I have an academic background in engineering.</p>
-    <p>Welcome to my site. Feel free to interact with the chat with resume feature I've included below.</p>
+  <section id="hero" class="hero">
+    <section class="bio">
+      <img src="images/joe.png" alt="Joe McKinney">
+      <p><span>>_</span> Hi, I'm Joe McKinney. I've spent some time in the Navy and the Air Force and I have an academic background
+        in engineering. Welcome to my site. Feel free to interact with the chat with resume feature I've included below.
+      </p>
+    </section>
+
   </section>
   <main>
+    <!-- AI Avatar Section -->
     <section class="ai-avatar">
-      <img src="https://via.placeholder.com/150" alt="AI Avatar">
+      <img src="./images/ai.png" alt="AI helper">
     </section>
-    <section class="chat">
+
+    <!-- Chat Section -->
+    <section id="chat" class="chat">
       <form action="submit">
-        <input type="text" name="question" id="question" placeholder="Ask me anything">
-        <button type="submit">Submit</button>
+        <input type="text" id="promptInput" placeholder="Ask a question about my Resume.">
+        <div class="buttons">
+          <button type="button" id="generateBtn">Ask</button>
+          <button type="button" id="stopBtn">Stop</button>
+        </div>
       </form>
-      <p>Answer</p>
+      <div id="resultText" class="answer">
+        <span>>_ </span>
+      </div>
     </section>
+
+    <!-- Resume Section -->
     <section class="resume">
-      <a href="path/to/resume.pdf" download>Download Resume</a>
+      <h3>Resume</h3>
+      <iframe src="./images/resume.pdf" frameborder="0"></iframe>
     </section>
+
   </main>
+  <footer>
+    <p>&copy; 2024 Joe McKinney</p>
+  </footer>
+  <script src="script.js"></script>
 </body>
-<footer>
-  <p>&copy; 2021 Joe McKinney</p>
-</footer>
+
 </html>
