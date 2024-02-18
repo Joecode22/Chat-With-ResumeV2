@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
 import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { Readable } from 'stream';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
@@ -23,12 +24,16 @@ export default async function (req, res) {
     });
 
     const stream = OpenAIStream(response);
+    const chunks = [];
 
     for await (const chunk of stream) {
       console.log('Data chunk from OpenAI API:', chunk);
+      chunks.push(chunk);
     }
 
-    return new StreamingTextResponse(stream, {
+    const newStream = Readable.from(chunks);
+
+    return new StreamingTextResponse(newStream, {
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
         'Cache-Control': 'no-cache',
