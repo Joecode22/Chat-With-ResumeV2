@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
 import { OpenAIStream } from 'ai';
+import { Readable } from 'stream';
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
@@ -8,6 +9,22 @@ const openai = new OpenAI({
 
 // IMPORTANT! Set the runtime to edge
 export const runtime = 'edge';
+
+// Create a readable stream from an async generator
+function createReadableStream(asyncGenerator) {
+  const readable = new Readable({
+    read() {
+      (async () => {
+        for await (const chunk of asyncGenerator) {
+          this.push(chunk);
+        }
+        this.push(null);
+      })();
+    }
+  });
+
+  return readable;
+}
 
 export default async function (req, res) {
   const prompt = req.query.prompt;
@@ -26,7 +43,7 @@ export default async function (req, res) {
 
     console.log("the response is: ", response); // Log the response
 
-    const stream = OpenAIStream(response);
+    const stream = createReadableStream(response.iterator);
 
     // Pipe the stream to the response
     stream.pipe(res);
