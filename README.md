@@ -2,6 +2,10 @@
 
 This project is a chatbot that uses OpenAI's GPT-3 model to answer questions based on my resume.
 
+## Live Demo
+
+You can view the live demo of the application [here](https://vets-who-code-prework.vercel.app/).
+
 ## Features
 
 - **OpenAI GPT-3**: The chatbot uses OpenAI's GPT-3 model to generate responses to user's questions.
