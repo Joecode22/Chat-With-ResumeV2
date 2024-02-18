@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const prompt = document.getElementById("promptInput").value;
 
     oboe(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
-      .node('!.choices.*.delta', function(delta) {
+      .node('!.*', function (item) {
         const paragraph = document.createElement("p");
-        paragraph.innerText = delta.content;
+        paragraph.innerText = item.choices[0].delta.content;
         resultText.appendChild(paragraph);
       })
-      .fail(function(error) {
+      .fail(function (error) {
         console.error("Error from server:", error);
         resultText.innerHTML = "<p>Error from server. See console for details.</p>";
       });
