@@ -10,7 +10,7 @@ export const runtime = 'edge';
 export default async function (req, res) {
   const prompt = req.query.prompt;
 
-  console.log('Request body:', req.body); // Log the request body
+  console.log('Prompt:', prompt); // Log the prompt
 
   try {
     const response = await openai.chat.completions.create({
@@ -22,6 +22,8 @@ export default async function (req, res) {
       ],
     });
 
+    console.log('Response from OpenAI API:', response); // Log the response
+
     const stream = OpenAIStream(response);
 
     return new StreamingTextResponse(stream, {
@@ -32,7 +34,7 @@ export default async function (req, res) {
       },
     });
   } catch (error) {
-    console.error('Error from OpenAI API:', error);
+    console.error('Error from OpenAI API:', error); // Log the error
     res.status(500).json({ error: 'Error from OpenAI API' });
   }
 };
