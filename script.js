@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   document.getElementById("randomBtn").addEventListener("click", () => {
+    event.preventDefault();
     const promptInput = document.getElementById("promptInput");
     const randomIndex = Math.floor(Math.random() * randomQuestions.length);
     promptInput.value = randomQuestions[randomIndex];
