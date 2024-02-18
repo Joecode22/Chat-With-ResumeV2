@@ -1,34 +1,35 @@
-const openai = require('openai');
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("generateBtn").addEventListener("click", async () => {
+    const resultText = document.getElementById("resultText");
+    resultText.innerText = "Loading...";
 
-module.exports = async (req, res) => {
-  console.log('Received request for /api/generate');
+    const prompt = document.getElementById("promptInput").value;
 
-  const prompt = req.query.prompt;
-  console.log(`Prompt value: ${prompt}`);
+    try {
+      const response = await fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}`);
 
-  // Assuming you're using the OpenAI API
-  try {
-    console.log('Sending request to OpenAI API');
-    const result = await openai.ChatCompletion.create({
-      model: 'text-davinci-002',
-      messages: [
-        {
-          role: 'system',
-          content: 'You are a helpful assistant.'
-        },
-        {
-          role: 'user',
-          content: prompt
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+
+      // Read the streaming response
+      while (true) {
+        const { value, done } = await reader.read();
+
+        if (done) {
+          break;
         }
-      ]
-    });
 
-    console.log('Received response from OpenAI API');
-    console.log(`Response: ${JSON.stringify(result)}`);
-
-    res.status(200).send(result);
-  } catch (error) {
-    console.error('Error while processing request:', error);
-    res.status(500).send({ error: 'An error occurred while processing your request.' });
-  }
-};
+        // Decode the response and update the UI
+        const chunk = decoder.decode(value);
+        resultText.innerText += chunk;
+      }
+    } catch (error) {
+      console.error("Error from server:", error);
+      resultText.innerText = "Error from server. See console for details.";
+    }
+  });
+});

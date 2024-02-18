@@ -1,10 +1,12 @@
 import OpenAI from 'openai';
-import { OpenAIStream } from 'ai';
+import { OpenAIStream, StreamingTextResponse } from 'ai';
 
+// Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
+// IMPORTANT! Set the runtime to edge
 export const runtime = 'edge';
 
 export default async function (req, res) {
@@ -24,25 +26,13 @@ export default async function (req, res) {
 
     const stream = OpenAIStream(response);
 
-    res.setHeader('Content-Type', 'text/event-stream');
-    res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Connection', 'keep-alive');
+    // Create a StreamingTextResponse with the stream as the body
+    const textResponse = new StreamingTextResponse(stream, {
+      headers: { 'X-RATE-LIMIT': 'lol' },
+    });
 
-    let buffer = '';
-    for await (const chunk of stream) {
-      buffer += chunk;
-      let newlineIndex;
-      while ((newlineIndex = buffer.indexOf('\n')) !== -1) {
-        const line = buffer.slice(0, newlineIndex);
-        buffer = buffer.slice(newlineIndex + 1);
-        if (line) {
-          console.log('Data chunk from OpenAI API:', line);
-          res.write(`data: ${JSON.stringify(line)}\n\n`);
-        }
-      }
-    }
-
-    res.end();
+    // Send the StreamingTextResponse to the client
+    res.status(200).send(textResponse);
   } catch (error) {
     console.error('Error from OpenAI API:', error); // Log the error
     res.status(500).json({ error: 'Error from OpenAI API' });
