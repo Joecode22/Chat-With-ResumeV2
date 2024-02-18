@@ -28,9 +28,18 @@ export default async function (req, res) {
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
 
+    let buffer = '';
     for await (const chunk of stream) {
-      console.log('Data chunk from OpenAI API:', chunk);
-      res.write(`data: ${JSON.stringify(chunk)}\n\n`);
+      buffer += chunk;
+      let newlineIndex;
+      while ((newlineIndex = buffer.indexOf('\n')) !== -1) {
+        const line = buffer.slice(0, newlineIndex);
+        buffer = buffer.slice(newlineIndex + 1);
+        if (line) {
+          console.log('Data chunk from OpenAI API:', line);
+          res.write(`data: ${JSON.stringify(line)}\n\n`);
+        }
+      }
     }
 
     res.end();
