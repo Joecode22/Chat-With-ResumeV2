@@ -24,22 +24,18 @@ export default async function (req, res) {
     });
 
     const stream = OpenAIStream(response);
-    const chunks = [];
 
     for await (const chunk of stream) {
       console.log('Data chunk from OpenAI API:', chunk);
-      chunks.push(chunk);
+      const newStream = Readable.from([chunk]);
+      return new StreamingTextResponse(newStream, {
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'no-cache',
+          'Connection': 'keep-alive',
+        },
+      });
     }
-
-    const newStream = Readable.from(chunks);
-
-    return new StreamingTextResponse(newStream, {
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-      },
-    });
   } catch (error) {
     console.error('Error from OpenAI API:', error); // Log the error
     res.status(500).json({ error: 'Error from OpenAI API' });
