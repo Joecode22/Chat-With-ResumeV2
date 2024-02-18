@@ -10,6 +10,7 @@ const openai = new OpenAI({
 export const runtime = 'edge';
 
 function createReadableStream(asyncIterable) {
+  let i = 0; // Define i here
   const readable = new Readable({
     read() {
       (async () => {
