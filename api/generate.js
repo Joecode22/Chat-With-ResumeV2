@@ -24,7 +24,7 @@ export default async function (req, res) {
       ],
     });
 
-    console.log(response); // Log the response
+    console.log("the response is: ", response); // Log the response
 
     const stream = OpenAIStream(response);
 
