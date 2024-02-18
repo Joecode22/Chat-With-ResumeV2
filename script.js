@@ -3,42 +3,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultText = document.getElementById("resultText");
     resultText.innerText = "Loading...";
 
-    const response = await fetch("/api/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ prompt: document.getElementById("promptInput").value }),
-    });
+    const prompt = document.getElementById("promptInput").value;
+    const eventSource = new EventSource(`/api/generate?prompt=${encodeURIComponent(prompt)}`);
 
-    if (!response.ok) {
-      console.error("Error from server:", response.status, response.statusText);
-      resultText.innerText = "Error from server. See console for details.";
-      return;
-    }
-
-    const reader = response.body.getReader();
-    let chunks = '';
-    resultText.innerText = ""; // Clear the loading text
-
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        break;
-      }
-      chunks += new TextDecoder("utf-8").decode(value);
-      let data;
-      try {
-        data = JSON.parse(chunks);
-      } catch {
-        // If the chunk is not a valid JSON, it means it's not complete yet. Continue to the next iteration.
-        continue;
-      }
-      // Reset chunks for the next message
-      chunks = '';
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
       if (!Array.isArray(data.choices) || data.choices.length === 0) {
         console.error("Unexpected response format from server:", data);
-        continue; // Skip this iteration and continue to the next one
+        return;
       }
 
       for (const choice of data.choices) {
@@ -53,6 +25,11 @@ document.addEventListener("DOMContentLoaded", () => {
           resultText.innerText += content;
         }
       }
-    }
+    };
+
+    eventSource.onerror = (event) => {
+      console.error("Error from server:", event);
+      resultText.innerText = "Error from server. See console for details.";
+    };
   });
 });
