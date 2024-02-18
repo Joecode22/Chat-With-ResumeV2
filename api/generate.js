@@ -24,6 +24,8 @@ export default async function (req, res) {
       ],
     });
 
+    console.log(response); // Log the response
+
     const stream = OpenAIStream(response);
 
     // Create a StreamingTextResponse with the stream as the body
