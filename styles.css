@@ -105,8 +105,8 @@ main {
 /* Subsection styles */
 .chat,
 .resume {
-  width: 50%;
-  padding: 1rem;
+  width: 48%;
+  padding: 1.5rem;
 }
 
 /* Chat Section */
