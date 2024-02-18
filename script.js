@@ -1,7 +1,6 @@
-const express = require('express');
-const app = express();
+const openai = require('openai');
 
-app.get('/api/generate', async (req, res) => {
+module.exports = async (req, res) => {
   console.log('Received request for /api/generate');
 
   const prompt = req.query.prompt;
@@ -10,7 +9,7 @@ app.get('/api/generate', async (req, res) => {
   // Assuming you're using the OpenAI API
   try {
     console.log('Sending request to OpenAI API');
-    const result = await openai.chat.completions.create({
+    const result = await openai.ChatCompletion.create({
       model: 'text-davinci-002',
       messages: [
         {
@@ -32,8 +31,4 @@ app.get('/api/generate', async (req, res) => {
     console.error('Error while processing request:', error);
     res.status(500).send({ error: 'An error occurred while processing your request.' });
   }
-});
-
-app.listen(3000, () => {
-  console.log('Server is listening on port 3000');
-});
+};
