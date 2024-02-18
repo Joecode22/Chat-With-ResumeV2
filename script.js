@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       paragraph.innerText = item.choices[0].delta.content;
       resultText.appendChild(paragraph);
 
-      setTimeout(processQueue, 1000); // Delay of 1 second
+      setTimeout(processQueue, 100); // Delay of 1 second
     }
 
     fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
