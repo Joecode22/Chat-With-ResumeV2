@@ -1,38 +1,28 @@
-// backend api call to OpenAI
+const OpenAI = require('openai');
+
+const openai = new OpenAI(process.env.OPENAI_API_KEY);
+
 module.exports = async (req, res) => {
   const prompt = req.body.prompt;
 
   console.log('Request body:', req.body); // Log the request body
 
-  // Fetch the response from the OpenAI API
-  const response = await fetch("https://api.openai.com/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify({
+  try {
+    const completion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
-      max_tokens: 100,
-      stream: true, // For streaming responses
-    }),
-  });
+    });
 
-  if (!response.ok) {
-    console.error('Error from OpenAI API:', await response.text());
+    console.log('Response from OpenAI API:', completion); // Log the response from the OpenAI API
+
+    if (!Array.isArray(completion.choices) || completion.choices.length === 0 || typeof completion.choices[0].message !== 'object' || typeof completion.choices[0].message.content !== 'string') {
+      res.status(500).json({ error: 'Unexpected response format from OpenAI API' });
+      return;
+    }
+
+    res.status(200).json(completion);
+  } catch (error) {
+    console.error('Error from OpenAI API:', error);
     res.status(500).json({ error: 'Error from OpenAI API' });
-    return;
   }
-
-  const data = await response.json();
-
-  console.log('Response from OpenAI API:', data); // Log the response from the OpenAI API
-
-  if (!Array.isArray(data.choices) || data.choices.length === 0 || typeof data.choices[0].message !== 'object' || typeof data.choices[0].message.content !== 'string') {
-    res.status(500).json({ error: 'Unexpected response format from OpenAI API' });
-    return;
-  }
-
-  res.status(200).json(data);
 };
