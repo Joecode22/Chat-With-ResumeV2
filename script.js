@@ -1,5 +1,3 @@
-import oboe from 'oboe';
-
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("generateBtn").addEventListener("click", () => {
     const resultText = document.getElementById("resultText");
