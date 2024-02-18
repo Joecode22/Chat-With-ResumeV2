@@ -40,13 +40,19 @@ document.addEventListener("DOMContentLoaded", () => {
             const line = data.slice(0, pos);
             data = data.slice(pos + 1);
 
-            if (line) {
-              const item = JSON.parse(line);
-              queue.push(item);
+            console.log('Received line:', line); // Add this line
 
-              if (!processingQueue) {
-                processingQueue = true;
-                processQueue();
+            if (line) {
+              try {
+                const item = JSON.parse(line);
+                queue.push(item);
+
+                if (!processingQueue) {
+                  processingQueue = true;
+                  processQueue();
+                }
+              } catch (error) {
+                console.error('Error parsing JSON:', error); // Add this line
               }
             }
           }
