@@ -17,15 +17,19 @@ module.exports = async (req, res) => {
       stream: true,
     });
 
-    let responseText = '';
+    // Set the headers for SSE
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
 
     for await (const chunk of completionStream) {
       if (chunk.choices && chunk.choices[0] && chunk.choices[0].delta && typeof chunk.choices[0].delta.content === 'string') {
-        responseText += chunk.choices[0].delta.content;
+        // Send the chunk as a Server-Sent Event
+        res.write(`data: ${JSON.stringify({ choices: [{ message: { content: chunk.choices[0].delta.content } }] })}\n\n`);
       }
     }
 
-    res.status(200).json({ choices: [{ message: { content: responseText } }] });
+    res.end();
   } catch (error) {
     console.error('Error from OpenAI API:', error);
     res.status(500).json({ error: 'Error from OpenAI API' });

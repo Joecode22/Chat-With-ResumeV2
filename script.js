@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const reader = response.body.getReader();
     let chunks = '';
+    resultText.innerText = ""; // Clear the loading text
+
     while (true) {
       const { done, value } = await reader.read();
       if (done) {
@@ -36,12 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
       chunks = '';
       if (!Array.isArray(data.choices) || data.choices.length === 0) {
         console.error("Unexpected response format from server:", data);
-        resultText.innerText =
-          "Unexpected response format from server. See console for details.";
-        return;
+        continue; // Skip this iteration and continue to the next one
       }
-
-      resultText.innerText = "";
 
       for (const choice of data.choices) {
         const { message } = choice;
