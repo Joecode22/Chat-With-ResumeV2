@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("generateBtn").addEventListener("click", async () => {
-    const resultContainer = document.getElementById("resultContainer");
-    resultContainer.innerHTML = "<p>Loading...</p>";
+    const resultText = document.getElementById("resultText");
+    resultText.innerHTML = "<p>Loading...</p>";
 
     const prompt = document.getElementById("promptInput").value;
 
@@ -27,14 +27,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const chunk = decoder.decode(value);
         const paragraph = document.createElement("p");
         paragraph.innerText = chunk;
-        resultContainer.appendChild(paragraph);
+        resultText.appendChild(paragraph);
 
         // Yield control back to the browser and add delay
         await new Promise(resolve => setTimeout(resolve, 100));
       }
     } catch (error) {
       console.error("Error from server:", error);
-      resultContainer.innerHTML = "<p>Error from server. See console for details.</p>";
+      resultText.innerHTML = "<p>Error from server. See console for details.</p>";
     }
   });
 });
