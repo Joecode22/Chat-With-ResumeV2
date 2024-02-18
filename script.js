@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("generateBtn").addEventListener("click", async () => {
     const resultText = document.getElementById("resultText");
-    resultText.innerText = "Loading...";
+    resultText.innerHTML = "Loading...";
 
     const prompt = document.getElementById("promptInput").value;
 
@@ -25,14 +25,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Decode the response and update the UI
         const chunk = decoder.decode(value);
-        resultText.innerText += chunk;
+        resultText.innerHTML += chunk;
 
         // Yield control back to the browser and add delay
         await new Promise(resolve => setTimeout(resolve, 100));
       }
     } catch (error) {
       console.error("Error from server:", error);
-      resultText.innerText = "Error from server. See console for details.";
+      resultText.innerHTML = "Error from server. See console for details.";
     }
   });
 });
