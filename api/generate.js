@@ -1,8 +1,7 @@
 import OpenAI from 'openai';
 import { Readable } from 'stream';
 import fs from 'fs';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import path from 'path';
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
@@ -12,12 +11,8 @@ const openai = new OpenAI({
 // IMPORTANT! Set the runtime edge
 export const runtime = 'edge';
 
-// Get the directory of the current module file
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 // Read the resume.txt file
-const resume = fs.readFileSync(`${__dirname}/resume.txt`, 'utf8');
+const resume = fs.readFileSync(path.join(__dirname, 'resume.txt'), 'utf8');
 
 function createReadableStream(asyncIterable) {
   let i = 0; // Define i here
