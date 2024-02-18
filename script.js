@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("generate").addEventListener("click", async () => {
-    const resultText = document.getElementById("result");
+  document.getElementById("generateBtn").addEventListener("click", async () => {
+    const resultText = document.getElementById("resultText");
     resultText.innerText = "Loading...";
 
     const response = await fetch("/api/generate", {
@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt: document.getElementById("prompt").value }),
+      body: JSON.stringify({ prompt: document.getElementById("promptInput").value }),
     });
 
     if (!response.ok) {
