@@ -14,9 +14,11 @@ function createReadableStream(asyncIterable) {
     read() {
       (async () => {
         for await (const chunk of asyncIterable) {
-          const timestamp = new Date().toISOString();
-          console.log(`[${timestamp}] Pushing data to stream:`, chunk.choices[0].delta.content);
-          this.push(chunk.choices[0].delta.content);
+          if (chunk.choices && chunk.choices[0].delta && chunk.choices[0].delta.content) {
+            const timestamp = new Date().toISOString();
+            console.log(`[${timestamp}] Pushing data to stream:`, chunk.choices[0].delta.content);
+            this.push(chunk.choices[0].delta.content);
+          }
         }
         this.push(null);
       })();
