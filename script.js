@@ -29,34 +29,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
         function processChunk({ done, value }) {
           data += decoder.decode(value, { stream: !done });
-
-          while (true) {
-            const pos = data.indexOf('\n');
-
-            if (pos === -1) {
-              break;
-            }
-
-            const line = data.slice(0, pos);
-            data = data.slice(pos + 1);
-
-            console.log('Received line:', line); // Add this line
-
-            if (line) {
-              try {
-                const item = JSON.parse(line);
+        
+          // Process the entire response as a single JSON object
+          if (done) {
+            try {
+              const items = JSON.parse(data);
+              items.forEach(item => {
                 queue.push(item);
-
+        
                 if (!processingQueue) {
                   processingQueue = true;
                   processQueue();
                 }
-              } catch (error) {
-                console.error('Error parsing JSON:', error); // Add this line
-              }
+              });
+            } catch (error) {
+              console.error('Error parsing JSON:', error);
             }
           }
-
+        
           if (!done) {
             return reader.read().then(processChunk);
           }
