@@ -31,7 +31,7 @@ export default async function (req, res) {
   console.log('Prompt:', prompt); // Log the prompt
 
   try {
-    const response = openai.chat.completions.create({
+    const response = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
       stream: true,
       messages: [
