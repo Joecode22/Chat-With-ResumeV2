@@ -1,4 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // Array of random questions
+  const randomQuestions = [
+    "What types of experience does Joe have?",
+    "How much experience does Joe have?",
+    "What is Joe's educational background?",
+    "What skills does Joe have?",
+    "What projects has Joe worked on?"
+  ];
+
+  document.getElementById("randomBtn").addEventListener("click", () => {
+    const promptInput = document.getElementById("promptInput");
+    const randomIndex = Math.floor(Math.random() * randomQuestions.length);
+    promptInput.value = randomQuestions[randomIndex];
+  });
+
   document.getElementById("generateBtn").addEventListener("click", () => {
     const resultText = document.getElementById("resultText");
     resultText.innerHTML = "<p>Loading...</p>";
@@ -14,11 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const item = queue.shift();
-      const span = document.createElement("span"); // Change this line
+      const span = document.createElement("span");
       span.innerText = item.choices[0].delta.content;
       resultText.appendChild(span);
 
-      setTimeout(processQueue, 100); // Delay of 1 second
+      setTimeout(processQueue, 100);
     }
 
     fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
@@ -30,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
         function processChunk({ done, value }) {
           data += decoder.decode(value, { stream: !done });
         
-          // Process the entire response as a single JSON object
           if (done) {
             try {
               const items = JSON.parse(data);
