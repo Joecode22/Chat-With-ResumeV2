@@ -103,24 +103,10 @@ main {
 }
 
 /* Subsection styles */
-.ai-avatar,
 .chat,
 .resume {
   width: 30%;
   padding: 2rem;
-}
-
-.ai-avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.ai-avatar img {
-  width: 90%;
-  height: auto;
-  border-radius: 50%;
-  border: 4px solid #28a745;
 }
 
 .chat {
@@ -128,6 +114,13 @@ main {
   padding: 0;
   margin: 0;
   width:30%;
+}
+
+.chat image {
+  width: 100%;
+  height: 10vh;
+  border-radius: 50%;
+  border: 4px solid #28a745;
 }
 
 form {
