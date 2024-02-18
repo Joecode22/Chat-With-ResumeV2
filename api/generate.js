@@ -18,6 +18,9 @@ function createReadableStream(asyncIterable) {
             const timestamp = new Date().toISOString();
             console.log(`[${timestamp}] Pushing data to stream:`, chunk.choices[0].delta.content);
             this.push(chunk.choices[0].delta.content);
+
+            // Add a delay before pushing the next chunk
+            await new Promise(resolve => setTimeout(resolve, 1000));
           }
         }
         this.push(null);
