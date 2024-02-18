@@ -223,6 +223,11 @@ form button:active {
   width: 75%;
 }
 
+#promptInput, #randomBtn {
+  vertical-align: middle;
+  box-sizing: border-box;
+}
+
 .line {
   display: block;
 }
