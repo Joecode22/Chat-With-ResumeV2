@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         for (const choice of data.choices) {
           const { message } = choice;
           if (typeof message !== "object" || typeof message.content !== "string") {
+
             console.error("Unexpected message format:", message);
             continue;
           }
