@@ -1,5 +1,5 @@
 import OpenAI from 'openai';
-import { OpenAIStream, StreamingTextResponse } from 'ai';
+import { OpenAIStream } from 'ai';
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
@@ -28,13 +28,8 @@ export default async function (req, res) {
 
     const stream = OpenAIStream(response);
 
-    // Create a StreamingTextResponse with the stream as the body
-    const textResponse = new StreamingTextResponse(stream, {
-      headers: { 'X-RATE-LIMIT': 'lol' },
-    });
-
-    // Send the StreamingTextResponse to the client
-    res.status(200).send(textResponse);
+    // Pipe the stream to the response
+    stream.pipe(res);
   } catch (error) {
     console.error('Error from OpenAI API:', error); // Log the error
     res.status(500).json({ error: 'Error from OpenAI API' });
