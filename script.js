@@ -1,35 +1,53 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("generateBtn").addEventListener("click", async () => {
-    const resultText = document.getElementById("resultText");
-    resultText.innerText = "Loading...";
+import OpenAI from 'openai';
+import { Readable } from 'stream';
 
-    const prompt = document.getElementById("promptInput").value;
+// Create an OpenAI API client (that's edge friendly!)
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY || '',
+});
 
-    try {
-      const response = await fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}`);
+// IMPORTANT! Set the runtime edge
+export const runtime = 'edge';
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder("utf-8");
-
-      // Read the streaming response
-      while (true) {
-        const { value, done } = await reader.read();
-
-        if (done) {
-          break;
+// Create a readable stream from an async generator
+function createReadableStream(asyncIterable) {
+  const readable = new Readable({
+    read() {
+      (async () => {
+        for await (const chunk of asyncIterable) {
+          this.push(chunk.choices[0].delta.content);
         }
-
-        // Decode the response and update the UI
-        const chunk = decoder.decode(value);
-        resultText.innerText += chunk;
-      }
-    } catch (error) {
-      console.error("Error from server:", error);
-      resultText.innerText = "Error from server. See console for details.";
+        this.push(null);
+      })();
     }
   });
-});
+
+  return readable;
+}
+
+export default async function (req, res) {
+  const prompt = req.query.prompt;
+
+  console.log('Prompt:', prompt); // Log the prompt
+
+  try {
+    const response = openai.chat.completions.create({
+      model: "gpt-3.5-turbo",
+      stream: true,
+      messages: [
+        { "role": "system", "content": "You are a helpful assistant." },
+        { "role": "user", "content": prompt }
+      ],
+    });
+
+    console.log("the response is: ", response); // Log the response
+
+    const stream = createReadableStream(response);
+
+    // Pipe the stream to the response
+    stream.pipe(res);
+  } catch (error) {
+    console.error('Error from OpenAI API:', error); // Log the error
+    res.status(500).json({ error: 'Error from OpenAI API' });
+  }
+};
