@@ -56,34 +56,41 @@ const generate = async () => {
       const chunk = decoder.decode(value);
       const lines = chunk.split("\n");
       const parsedLines = lines
-        .map((line) => line.replace(/^data: /, "").trim()) // Remove the "data: " prefix
-        .filter((line) => line !== "" && line !== "[DONE]") // Remove empty lines and "[DONE]"
+        .map((line) => {
+          try {
+            return JSON.parse(line); // Parse the JSON string
+          } catch (error) {
+            console.error('Error parsing JSON:', error);
+            return null;
+          }
+        })
+        .filter((parsedLine) => parsedLine !== null); // Filter out any lines that could not be parsed
         .map((line) => JSON.parse(line)); // Parse the JSON string
 
-      for (const parsedLine of parsedLines) {
-        const { choices } = parsedLine;
-        const { delta } = choices[0];
-        const { content } = delta;
-        // Update the UI with the new content
-        if (content) {
-          resultText.innerText += content;
-        }
-      }
+for (const parsedLine of parsedLines) {
+  const { choices } = parsedLine;
+  const { delta } = choices[0];
+  const { content } = delta;
+  // Update the UI with the new content
+  if (content) {
+    resultText.innerText += content;
+  }
+}
     }
   } catch (error) {
-    // Handle fetch request errors
-    if (signal.aborted) {
-      resultText.innerText = "Request aborted.";
-    } else {
-      console.error("Error:", error);
-      resultText.innerText = "Error occurred while generating.";
-    }
-  } finally {
-    // Enable the generate button and disable the stop button
-    generateBtn.disabled = false;
-    stopBtn.disabled = true;
-    controller = null; // Reset the AbortController instance
+  // Handle fetch request errors
+  if (signal.aborted) {
+    resultText.innerText = "Request aborted.";
+  } else {
+    console.error("Error:", error);
+    resultText.innerText = "Error occurred while generating.";
   }
+} finally {
+  // Enable the generate button and disable the stop button
+  generateBtn.disabled = false;
+  stopBtn.disabled = true;
+  controller = null; // Reset the AbortController instance
+}
 };
 
 const stop = () => {
