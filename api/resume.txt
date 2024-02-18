@@ -1,0 +1,88 @@
+Joe McKinney
+Software Developer
+Austin Area, Texas • +1-512-213-8366 • joe.code.mckinney@gmail.com 
+Portfolio: https://joemckinney.io/ | Github: https://github.com/Joecode22
+LinkedIn: https://www.linkedin.com/in/joe-k-mckinney/
+SUMMARY
+
+Accomplished engineer with recent experience in web and mobile full stack development as well as extensive experience in nuclear engineering, electrical engineering, semiconductor process engineering, and cybersecurity. Proven track record in leading high-impact high-stakes projects, optimizing systems, and innovating solutions in diverse technical environments.
+
+PROFESSIONAL EXPERIENCE
+
+Journal 365, Austin, TX	January 2024 – Present
+Mobile Application Developer
+Debugged and fixed errors in journal entry features, improving stability and UX.
+Implemented authentication with email verification for added security.
+Developed swipe-to-delete user interface and back-end functionality, enhancing usability.
+Optimized journal entry list component by implementing flatlist, a more performant list type.
+
+Samsung Austin Semiconductor, Austin, TX	Feb 2017 – January 2019
+Senior Engineer
+Managed advanced semiconductor equipment lifecycle enhancing uptime & production quality.
+Developed an analytics platform for equipment operation, maintenance, and cost optimization.
+Led projects yielding significant annual savings, increased system safety, & reduced product wastage.
+Facilitated major Fabrication Unit transition, completing under-budget and ahead-of-schedule.
+
+DTE Energy, Detroit, MI	March 2015 – Jan 2017
+Electrical System Supervisor
+Supervised complex electrical distribution systems for high availability and performance.
+Specialized in Energy Management and SCADA systems for real-time monitoring.
+Facilitated cross-departmental collaborations and provided technical guidance.
+
+United States Air Force, Dayton, OH	May 2012 – Dec 2014
+Graduate Research Associate 
+Partnered with Lawrence Livermore National Lab for nuclear detonation film analysis software.
+Developed automated detection algorithms and user-centric tools in Matlab.
+Recognized by the Defense Threat Reduction Agency for enhancing nuclear weapon analysis.
+Pioneered a collaborative research initiative to integrate advanced digital image processing  techniques into nuclear test film analysis, broadening the scope of detection capabilities.
+
+United States Air Force, San Antonio, TX	May 2009 – May 2012
+Cyber Security Crew Commander 
+Commanded global cybersecurity teams, managing significant investigations and breach prevention.
+Led a $970K server enhancement, reducing costs and enhancing operations.
+Developed network certification and accreditation standards, recognized as "Outstanding!"
+Implemented a comprehensive cyber threat intelligence system that reduced detection time for emerging threats by 50%, significantly improving response effectiveness.
+
+Texas Tech University Pulsed Power Lab, Pearl Harbor, HI	May 2008 – May 2009
+Undergraduate Research Assistant 
+Designed a 5kV Rapid Capacitor Charger, contributing to innovative directed energy research.
+Executed sophisticated PCB Designs PSPICE/ORCAD; implemented control protocols in C.
+Research contributions published and presented at the 2009 IEEE Pulsed Power Conference.
+
+United States Navy, Pearl Harbor, HI	Nov 1999 – Dec 2004
+Electronics Technician 
+Maintained navigation systems, contributing to the 2001 Navigation "N" Award.
+Conducted periscope photography providing high-quality intelligence directly to COMSUBPAC/J2.
+Engineered telecommunication infrastructure project, saving $40k in parts and contracted labor.
+Championed essential repairs and enhancements culminating in a successful shipyard overhaul
+
+EDUCATION
+
+University of Texas, Austin, TX	2023
+Certificate — Full Stack Software Engineering
+Award: Selected by classmates for the ‘Best Team Member Collaborator Award’
+
+Air Force Institute of Technology, Dayton, OH	2014
+Master of Science — Nuclear Engineering
+Research sponsored by DTRA and LLNL
+Vice President, American Nuclear Society Student Chapter
+Thesis on photogrammetry of atmospheric nuclear test films
+
+Air Force Institute of Technology, Dayton, OH	2009
+Bachelor of Science — Electrical Engineering
+Directed Energy Research sponsored by Army Research Labs
+Member, Historian, Treasurer IEEE Student Chapter
+Air Force ROTC Member, Inspector General, Vice Commander
+Awards: Texas Instruments Analog Design Engibous Regional Prize
+
+SKILLS & OTHER
+
+Skills: Agile, Android, Cyber Security, Embedded Programming, Expo, Express, Git/Github, iOS, JavaScript, MongoDB, Network Accreditation, Node.js, Project Management, React, React Native, REST APIs, Safety and Standards Compliance, SQL, TDD (Test-Driven Development), UI/UX, Vendor Management, Web Development Tools and Frameworks.
+
+Notable Projects
+
+GrooveHub Remixed - The Coding Bootcamp - University of Texas, Austin
+Full stack MERN web application that allows users to view and share their own Spotify playlists with a community and discuss playlists with real time chat functionality. Implements Oauth authentication flow that securely allows a user to have a unique experience by connecting to Spotify to view their own playlists that can be shared and discussed with the community.
+
+GitHub: https://github.com/Dannymak1993/Groovehub-Remixed
+Deployment: https://groovehub-remixed-2f12da1632a2.herokuapp.com/

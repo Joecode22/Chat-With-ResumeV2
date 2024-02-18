@@ -208,6 +208,15 @@ form button:active {
   height: 100%;
 }
 
+.parent-container {
+  display: flex;
+  align-items: center; /* if you want to align them vertically */
+}
+
+#randomBtn {
+  margin-left: auto;
+}
+
 /* Footer styles */
 footer {
   width: 100%;
