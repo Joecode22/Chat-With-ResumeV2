@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const item = queue.shift();
-      const paragraph = document.createElement("p");
-      paragraph.innerText = item.choices[0].delta.content;
-      resultText.appendChild(paragraph);
+      const span = document.createElement("span"); // Change this line
+      span.innerText = item.choices[0].delta.content;
+      resultText.appendChild(span);
 
       setTimeout(processQueue, 100); // Delay of 1 second
     }
