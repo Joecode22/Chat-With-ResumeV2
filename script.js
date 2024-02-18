@@ -5,7 +5,22 @@ document.addEventListener("DOMContentLoaded", () => {
     "How much experience does Joe have?",
     "What is Joe's educational background?",
     "What skills does Joe have?",
-    "What projects has Joe worked on?"
+    "What projects has Joe worked on?",
+    "What programming languages does Joe know?",
+    "What is Joe's proficiency in JavaScript?",
+    "Has Joe worked in a team environment before?",
+    "What was Joe's role in his previous job?",
+    "What certifications does Joe have?",
+    "What is Joe's approach to problem-solving?",
+    "Has Joe ever led a team or project?",
+    "What is Joe's experience with front-end development?",
+    "What is Joe's experience with back-end development?",
+    "Does Joe have experience with cloud technologies?",
+    "What is Joe's biggest professional achievement?",
+    "What kind of work environment does Joe prefer?",
+    "Does Joe have experience with agile methodologies?",
+    "What is Joe's experience with test-driven development?",
+    "What is Joe's philosophy towards continuous learning in tech?"
   ];
 
   document.getElementById("randomBtn").addEventListener("click", () => {

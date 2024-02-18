@@ -15,7 +15,7 @@ export const runtime = 'edge';
 const resume = fs.readFileSync(path.join(__dirname, 'resume.txt'), 'utf8');
 
 function createReadableStream(asyncIterable) {
-  let i = 0; // Define i here
+  let i = 0;
   const readable = new Readable({
     read() {
       (async () => {
