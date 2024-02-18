@@ -152,6 +152,19 @@ form {
   margin-bottom: 1rem;
 }
 
+.buttons button {
+  flex: 1;
+  margin: 0 0.5rem;
+}
+
+#randomBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
 form button {
   background-color: #28a745;
   color: white;
@@ -211,21 +224,6 @@ form button:active {
 .parent-container {
   display: flex;
   align-items: center; /* if you want to align them vertically */
-}
-
-#randomBtn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 1rem;
-  margin: 0;
-  width: 75%;
-}
-
-#promptInput, #randomBtn {
-  vertical-align: middle;
-  box-sizing: border-box;
 }
 
 .line {
