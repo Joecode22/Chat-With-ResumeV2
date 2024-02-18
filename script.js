@@ -7,11 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     oboe(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
       .node('!.*', function (item) {
-        requestAnimationFrame(() => {
-          const paragraph = document.createElement("p");
-          paragraph.innerText = item.choices[0].delta.content;
-          resultText.appendChild(paragraph);
-        });
+        setTimeout(() => {
+          requestAnimationFrame(() => {
+            const paragraph = document.createElement("p");
+            paragraph.innerText = item.choices[0].delta.content;
+            resultText.appendChild(paragraph);
+          });
+        }, 1000); // Delay of 1 second
       })
       .fail(function (error) {
         console.error("Error from server:", error);
