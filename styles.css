@@ -109,7 +109,12 @@ main {
   padding: 2rem;
 }
 
+/* Chat Section */
 .chat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   height: 100%;
   padding: 0;
   margin: 0;
@@ -120,6 +125,7 @@ main {
   height: 10vh;
   border-radius: 50%;
   border: 4px solid #28a745;
+  margin-bottom: 1rem;
 }
 
 form {
@@ -184,7 +190,6 @@ form button:active {
 
 .resume {
   height: 100%;
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
