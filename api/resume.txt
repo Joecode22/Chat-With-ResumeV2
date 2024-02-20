@@ -11,10 +11,10 @@ PROFESSIONAL EXPERIENCE
 
 Journal 365, Austin, TX	January 2024 – Present
 Mobile Application Developer
-Debugged and fixed errors in journal entry features, improving stability and UX.
-Implemented authentication with email verification for added security.
-Developed swipe-to-delete user interface and back-end functionality, enhancing usability.
-Optimized journal entry list component by implementing flatlist, a more performant list type.
+-Debugged and fixed errors in journal entry features, improving stability and UX.
+-Implemented authentication with email verification for added security.
+-Developed swipe-to-delete user interface and back-end functionality, enhancing usability.
+-Programmed camera and image frontend selection features and backend torage; adding secure image handling
 
 Feb 2017 – January 2019
 Samsung Austin Semiconductor, Austin, TX	

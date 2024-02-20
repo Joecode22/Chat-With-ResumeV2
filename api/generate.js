@@ -35,6 +35,11 @@ function createReadableStream(asyncIterable) {
 }
 
 export default async function (req, res) {
+  let clientConnected = true;
+  res.on('close', () => {
+    clientConnected = false;
+  });
+
   const prompt = req.query.prompt;
 
   try {
@@ -42,25 +47,43 @@ export default async function (req, res) {
       model: "gpt-3.5-turbo",
       stream: true,
       messages: [
-        { "role": "system", "content": "You are a helpful assistant that answers questions based on the following resume. If a question is not related to the following resume redirect the user to ask relevant questions or to use the random question button" },
+        { "role": "system", "content": "You are a helpful assistant." },
         { "role": "user", "content": resume },
         { "role": "user", "content": prompt }
       ],
     });
 
-    // Use .tee() to create two independent streams
     const [logStream, responseStream] = response.tee();
 
-    // Log the response
     for await (const chunk of logStream) {
     }
 
-    const stream = createReadableStream(responseStream);
+    const readable = new Readable({
+      read() {
+        (async () => {
+          for await (const chunk of responseStream) {
+            if (!clientConnected) {
+              this.push(null);
+              break;
+            }
 
-    // Pipe the stream to the response
-    stream.pipe(res);
+            if (chunk.choices && chunk.choices[0].delta && chunk.choices[0].delta.content) {
+              const timestamp = new Date().toISOString();
+              this.push((i++ ? ',\n' : '[') + JSON.stringify(chunk));
+            }
+          }
+
+          if (clientConnected) {
+            this.push('\n]');
+            this.push(null);
+          }
+        })();
+      }
+    });
+
+    readable.pipe(res);
   } catch (error) {
-    console.error('Error from OpenAI API:', error); // Log the error
+    console.error('Error from OpenAI API:', error);
     res.status(500).json({ error: 'Error from OpenAI API' });
   }
 };
