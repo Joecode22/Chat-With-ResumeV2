@@ -16,45 +16,51 @@ Implemented authentication with email verification for added security.
 Developed swipe-to-delete user interface and back-end functionality, enhancing usability.
 Optimized journal entry list component by implementing flatlist, a more performant list type.
 
-Samsung Austin Semiconductor, Austin, TX	Feb 2017 – January 2019
+Feb 2017 – January 2019
+Samsung Austin Semiconductor, Austin, TX	
 Senior Engineer
-Managed advanced semiconductor equipment lifecycle enhancing uptime & production quality.
-Developed an analytics platform for equipment operation, maintenance, and cost optimization.
-Led projects yielding significant annual savings, increased system safety, & reduced product wastage.
-Facilitated major Fabrication Unit transition, completing under-budget and ahead-of-schedule.
+-Managed advanced semiconductor equipment lifecycle enhancing uptime & production quality.
+-Developed an analytics platform for equipment operation, maintenance, and cost optimization.
+-Led projects yielding significant annual savings, increased system safety, & reduced product wastage.
+-Facilitated major Fabrication Unit transition, completing under-budget and ahead-of-schedule.
 
-DTE Energy, Detroit, MI	March 2015 – Jan 2017
+March 2015 – Jan 2017
+DTE Energy, Detroit, MI	
 Electrical System Supervisor
-Supervised complex electrical distribution systems for high availability and performance.
-Specialized in Energy Management and SCADA systems for real-time monitoring.
-Facilitated cross-departmental collaborations and provided technical guidance.
+-Supervised complex electrical distribution systems for high availability and performance.
+-Specialized in Energy Management and SCADA systems for real-time monitoring.
+-Facilitated cross-departmental collaborations and provided technical guidance.
 
-United States Air Force, Dayton, OH	May 2012 – Dec 2014
+May 2012 – Dec 2014
+United States Air Force, Dayton, OH	
 Graduate Research Associate 
-Partnered with Lawrence Livermore National Lab for nuclear detonation film analysis software.
-Developed automated detection algorithms and user-centric tools in Matlab.
-Recognized by the Defense Threat Reduction Agency for enhancing nuclear weapon analysis.
-Pioneered a collaborative research initiative to integrate advanced digital image processing  techniques into nuclear test film analysis, broadening the scope of detection capabilities.
+-Partnered with Lawrence Livermore National Lab for nuclear detonation film analysis software.
+-Developed automated detection algorithms and user-centric tools in Matlab.
+-Recognized by the Defense Threat Reduction Agency for enhancing nuclear weapon analysis.
+-Pioneered a collaborative research initiative to integrate advanced digital image processing  techniques into nuclear test film analysis, broadening the scope of detection capabilities.
 
-United States Air Force, San Antonio, TX	May 2009 – May 2012
+May 2009 – May 2012
+United States Air Force, San Antonio, TX	
 Cyber Security Crew Commander 
-Commanded global cybersecurity teams, managing significant investigations and breach prevention.
-Led a $970K server enhancement, reducing costs and enhancing operations.
-Developed network certification and accreditation standards, recognized as "Outstanding!"
-Implemented a comprehensive cyber threat intelligence system that reduced detection time for emerging threats by 50%, significantly improving response effectiveness.
+-Commanded global cybersecurity teams, managing significant investigations and breach prevention.
+-Led a $970K server enhancement, reducing costs and enhancing operations.
+-Developed network certification and accreditation standards, recognized as "Outstanding!"
+-Implemented a comprehensive cyber threat intelligence system that reduced detection time for emerging threats by 50%, significantly improving response effectiveness.
 
-Texas Tech University Pulsed Power Lab, Pearl Harbor, HI	May 2008 – May 2009
+May 2008 – May 2009
+Texas Tech University Pulsed Power Lab, Pearl Harbor, HI	
 Undergraduate Research Assistant 
-Designed a 5kV Rapid Capacitor Charger, contributing to innovative directed energy research.
-Executed sophisticated PCB Designs PSPICE/ORCAD; implemented control protocols in C.
-Research contributions published and presented at the 2009 IEEE Pulsed Power Conference.
+-Designed a 5kV Rapid Capacitor Charger, contributing to innovative directed energy research.
+-Executed sophisticated PCB Designs PSPICE/ORCAD; implemented control protocols in C.
+-Research contributions published and presented at the 2009 IEEE Pulsed Power Conference.
 
-United States Navy, Pearl Harbor, HI	Nov 1999 – Dec 2004
-Electronics Technician 
-Maintained navigation systems, contributing to the 2001 Navigation "N" Award.
-Conducted periscope photography providing high-quality intelligence directly to COMSUBPAC/J2.
-Engineered telecommunication infrastructure project, saving $40k in parts and contracted labor.
-Championed essential repairs and enhancements culminating in a successful shipyard overhaul
+Nov 1999 – Dec 2004
+United States Navy, Pearl Harbor, HI	
+Submarine Electronics Technician 
+-Maintained navigation systems, contributing to the 2001 Navigation "N" Award.
+-Conducted periscope photography providing high-quality intelligence directly to COMSUBPAC/J2.
+-Engineered telecommunication infrastructure project, saving $40k in parts and contracted labor.
+-Championed essential repairs and enhancements culminating in a successful shipyard overhaul
 
 EDUCATION
 
@@ -68,16 +74,16 @@ Research sponsored by DTRA and LLNL
 Vice President, American Nuclear Society Student Chapter
 Thesis on photogrammetry of atmospheric nuclear test films
 
-Air Force Institute of Technology, Dayton, OH	2009
+Texas Tech University, Lubbock, TX	2009
 Bachelor of Science — Electrical Engineering
-Directed Energy Research sponsored by Army Research Labs
-Member, Historian, Treasurer IEEE Student Chapter
-Air Force ROTC Member, Inspector General, Vice Commander
-Awards: Texas Instruments Analog Design Engibous Regional Prize
+-Directed Energy Research sponsored by Army Research Labs
+-Member, Historian, Treasurer IEEE Student Chapter
+-Air Force ROTC Member, Inspector General, Vice Commander
+-Awards: Texas Instruments Analog Design Engibous Regional Prize
 
 SKILLS & OTHER
 
-Skills: Agile, Android, Cyber Security, Embedded Programming, Expo, Express, Git/Github, iOS, JavaScript, MongoDB, Network Accreditation, Node.js, Project Management, React, React Native, REST APIs, Safety and Standards Compliance, SQL, TDD (Test-Driven Development), UI/UX, Vendor Management, Web Development Tools and Frameworks.
+Skills: Agile, C/C++, Embedded Programming, Engineering, Expo, Express, Fortran, Git/Github, Java, JavaScript, MongoDB, Node.js, Project Management, Python, React, React Native, SQL
 
 Notable Projects
 
