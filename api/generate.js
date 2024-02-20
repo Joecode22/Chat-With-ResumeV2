@@ -8,8 +8,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-// IMPORTANT! Set the runtime edge
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 // Read the resume.txt file
 const resume = fs.readFileSync(path.join(__dirname, 'resume.txt'), 'utf8');
