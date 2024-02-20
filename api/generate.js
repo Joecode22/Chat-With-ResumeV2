@@ -22,7 +22,7 @@ function createReadableStream(asyncIterable) {
         for await (const chunk of asyncIterable) {
           if (chunk.choices && chunk.choices[0].delta && chunk.choices[0].delta.content) {
             const timestamp = new Date().toISOString();
-            console.log(`[${timestamp}] Pushing data to stream:`, chunk.choices[0].delta.content);
+            // console.log(`[${timestamp}] Pushing data to stream:`, chunk.choices[0].delta.content);
             this.push((i++ ? ',\n' : '[') + JSON.stringify(chunk)); // Add newline character after each JSON object
           }
         }
@@ -37,8 +37,6 @@ function createReadableStream(asyncIterable) {
 
 export default async function (req, res) {
   const prompt = req.query.prompt;
-
-  console.log('Prompt:', prompt); // Log the prompt
 
   try {
     const response = await openai.chat.completions.create({
@@ -56,7 +54,6 @@ export default async function (req, res) {
 
     // Log the response
     for await (const chunk of logStream) {
-      console.log(chunk);
     }
 
     const stream = createReadableStream(responseStream);
