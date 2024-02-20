@@ -60,6 +60,7 @@ export default async function (req, res) {
 
     const readable = new Readable({
       read() {
+        let i = 0; // Define i here
         (async () => {
           for await (const chunk of responseStream) {
             if (!clientConnected) {
