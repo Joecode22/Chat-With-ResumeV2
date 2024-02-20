@@ -30,6 +30,15 @@ document.addEventListener("DOMContentLoaded", () => {
     promptInput.value = randomQuestions[randomIndex];
   });
 
+  let controller;
+  let signal;
+
+  document.getElementById("stopBtn").addEventListener("click", () => {
+    if (controller) {
+      controller.abort();
+    }
+  });
+
   document.getElementById("generateBtn").addEventListener("click", () => {
     const resultText = document.getElementById("resultText");
     resultText.innerHTML = "<p>Loading...</p>";
@@ -52,7 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(processQueue, 100);
     }
 
-    fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}`)
+    controller = new AbortController();
+    signal = controller.signal;
+
+    fetch(`/api/generate?prompt=${encodeURIComponent(prompt)}`, { signal })
       .then(response => response.body.getReader())
       .then(reader => {
         const decoder = new TextDecoder();
@@ -85,8 +97,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return reader.read().then(processChunk);
       })
       .catch(error => {
-        console.error("Error from server:", error);
-        resultText.innerHTML = "<p>Error from server. See console for details.</p>";
+        if (error.name === 'AbortError') {
+          console.log('Fetch aborted');
+        } else {
+          console.error("Error from server:", error);
+          resultText.innerHTML = "<p>Error from server. See console for details.</p>";
+        }
       });
   });
 });
