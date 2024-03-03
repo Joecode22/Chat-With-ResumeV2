@@ -1,4 +1,4 @@
-# Resume Chatbot
+# Chat With Resume Version 2
 
 This project is a chatbot that uses OpenAI's GPT-3 model to answer questions based on my resume.
 
