@@ -6,6 +6,10 @@ This project is a chatbot that uses OpenAI's GPT-3 model to answer questions bas
 
 You can view the live demo of the application [here](https://vets-who-code-prework.vercel.app/).
 
+## Appearance
+
+[Chat With Resume V2](https://github.com/Joecode22/Chat-With-ResumeV2/assets/93625431/9087627b-0198-43ba-8ee2-8cf31545be99)
+
 ## Features
 
 - **OpenAI GPT-3**: The chatbot uses OpenAI's GPT-3 model to generate responses to user's questions.
